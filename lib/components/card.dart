@@ -50,7 +50,7 @@ class CustomCard extends StatelessWidget {
 class QuizAnnouncementCard extends StatelessWidget {
   final String title;
   final String subject;
- final String duration;
+  final String duration;
   final String dueDate;
   final void Function() onTap;
 
@@ -101,9 +101,9 @@ class QuizAnnouncementCard extends StatelessWidget {
 }
 
 class ResultAnnouncementCard extends StatelessWidget {
- final String title;
- final String subject;
- final double score;
+  final String title;
+  final String subject;
+  final double score;
   // String duration;
   // String dueDate;
   final void Function() onTap;
@@ -247,7 +247,7 @@ class AssessmentCard extends StatelessWidget {
               height: 15,
             ),
             Breakpoints.mediumAndUp.isActive(context)
-            ? Row(children: [
+                ? Row(children: [
                     Expanded(
                       child: FullOutlineButton(
                           onPressed: onViewScore,
@@ -305,13 +305,13 @@ class AssessmentCard extends StatelessWidget {
 }
 
 class MockCard extends StatelessWidget {
- final String title;
- final String subject;
- final String duration;
- final double? score;
- final String dueDate;
- final void Function() onViewScore;
- final void Function() onStart;
+  final String title;
+  final String subject;
+  final String duration;
+  final double? score;
+  final String dueDate;
+  final void Function() onViewScore;
+  final void Function() onStart;
 
   const MockCard({
     super.key,
@@ -396,7 +396,7 @@ class MockCard extends StatelessWidget {
               height: 15,
             ),
             Breakpoints.mediumAndUp.isActive(context)
-            ? Row(children: [
+                ? Row(children: [
                     Expanded(
                       child: FullOutlineButton(
                           onPressed: onViewScore,
@@ -453,87 +453,102 @@ class MockCard extends StatelessWidget {
   }
 }
 
-class OptionTile extends StatelessWidget {
-  final String option;
-  final String explanation;
-  final bool isSelected;
-  final bool isCorrect; // Add a property to track correctness
- final bool isChecking;
+class TopicTile extends StatelessWidget {
+  final String title;
+  final int total;
+  final int completed;
+
   final VoidCallback onTap;
 
- const OptionTile({
-    required this.option,
-    required this.isSelected,
-    required this.explanation,
-    required this.isCorrect,
-    required this.onTap,
-    required this.isChecking,
+  const TopicTile({
     super.key,
+    required this.title,
+    required this.onTap,
+    required this.completed,
+    required this.total,
   });
 
   @override
   Widget build(BuildContext context) {
     // debugPrint("option: $option correct: $isCorrect");
     return GestureDetector(
-      onTap: isChecking ? null : onTap,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: isChecking
-                  ? (!isCorrect
-                      ? isSelected
-                          ? (isCorrect
-                              ? Colors.green.withOpacity(0.2)
-                              : Colors.red.withOpacity(0.2))
-                          : Theme.of(context).colorScheme.surfaceContainerHighest
-                      : Colors.green.withOpacity(0.2))
-                  : isSelected
-                      ? Theme.of(context).colorScheme.surfaceContainerHighest
-                      : Theme.of(context).colorScheme.surfaceContainerLowest,
-              border: Border.all(
-                color: !isChecking
-                    ? Theme.of(context).colorScheme.primary
-                    : isSelected
-                        ? (isCorrect ? Colors.green : Colors.red)
-                        : Colors.grey,
-              ),
-              borderRadius: BorderRadius.circular(10.0),
+      onTap: onTap,
+      child: Container(
+        color: Colors.transparent,
+        // height: 50,
+
+        width: double.maxFinite,
+        child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+            horizontalTitleGap: 5,
+            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            title: Text(
+              title,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    option,
-                    style: GoogleFonts.dmSans(
-                        fontWeight:
-                            isSelected ? FontWeight.w600 : FontWeight.normal),
-                  ),
+            subtitle: Text("$completed/$total"),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 30,
+                width: 30,
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  value: completed / total,
+                  strokeCap: StrokeCap.round,
+                  strokeWidth: 7,
                 ),
-                if (isCorrect && isChecking)
-                  const Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ),
-                if (isSelected && !isCorrect && isChecking)
-                  const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ),
-              ],
-            ),
-          ),
-          if (isCorrect && isChecking)
-          Text("Explanation: \n$explanation"),
-          if (isCorrect && isChecking)
-          const SizedBox(
-            height: 10,
-          )
-        ],
+              ),
+            )),
       ),
     );
   }
 }
 
+class SubjectCard extends StatelessWidget {
+  final String title;
+  final void Function()? onPressed;
+  const SubjectCard({
+    super.key,
+    required this.title,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+              width: 2, color: Theme.of(context).colorScheme.secondary)),
+      constraints: const BoxConstraints(
+        maxWidth: 300,
+      ),
+      child: Container(
+        // padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+                width: 2, color: Theme.of(context).colorScheme.secondary)),
+        constraints: const BoxConstraints(
+          maxWidth: 300,
+        ),
+        child: ListTile(
+          title: Text(
+            title,
+            style:
+                GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+          trailing: IconButton.filledTonal(
+              onPressed: onPressed,
+              icon: const Icon(Icons.arrow_forward_ios_rounded)),
+          contentPadding: EdgeInsets.all(10),
+        ),
+      ),
+    );
+  }
+}

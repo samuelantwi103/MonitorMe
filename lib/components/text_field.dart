@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -8,14 +9,23 @@ class FormTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final bool hassuffixIcon;
   bool obscureText;
+  TextInputType? keyboardType;
+  FormFieldValidator<String>? validator;
+  int? maxLength;
+  List<TextInputFormatter>? inputFormatters;
 
-  FormTextField(
-      {super.key,
-      required this.controller,
-      this.obscureText = false,
-      required this.hintText,
-      this.prefixIcon,
-      this.hassuffixIcon = false});
+  FormTextField({
+    super.key,
+    required this.controller,
+    this.obscureText = false,
+    required this.hintText,
+    this.prefixIcon,
+    this.hassuffixIcon = false,
+    this.keyboardType,
+    this.validator,
+    this.maxLength,
+    this.inputFormatters,
+  });
 
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -28,7 +38,11 @@ class _FormTextFieldState extends State<FormTextField> {
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
-      obscureText: widget.obscureText,
+      validator: widget.validator,
+      // obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
+      maxLength: widget.maxLength,
+      inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         // labelText: "Password",
         hintText: widget.hintText,
@@ -49,12 +63,13 @@ class _FormTextFieldState extends State<FormTextField> {
         // focusColor: Theme.of(context).colorScheme.surface,
         // hoverColor: Theme.of(context).colorScheme.surface,
         // suffixIconColor: Theme.of(context).colorScheme.surface,
-
+      
         prefixIcon: widget.prefixIcon,
         // focusedBorder: OutlineInputBorder(
         //   color: Theme.of(context).colorScheme.
         //   borderRadius: BorderRadius.circular(5.0),
         // ),
+
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
@@ -71,9 +86,9 @@ class _FormTextFieldState extends State<FormTextField> {
               )
             : null,
       ),
-      style: TextStyle(
-        // color: Theme.of(context).colorScheme.onError,
-      ),
+      style: const TextStyle(
+          // color: Theme.of(context).colorScheme.onError,
+          ),
     );
   }
 }

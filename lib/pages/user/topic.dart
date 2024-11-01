@@ -1,33 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:monitor_me/components/card.dart';
+import 'package:monitor_me/components/collapsible.dart';
 import 'package:monitor_me/components/glass_container.dart';
+import 'package:monitor_me/pages/user/dashboard.dart';
 import 'package:monitor_me/pages/user/subject.dart';
 import 'package:monitor_me/services/transitions.dart';
 
-class UserDashboardPage extends StatefulWidget {
-  const UserDashboardPage({super.key});
+class UserTopicPage extends StatefulWidget {
+  final String title;
+  const UserTopicPage({
+    super.key,
+    required this.title,
+  });
 
   @override
-  State<UserDashboardPage> createState() => _UserDashboardPageState();
+  State<UserTopicPage> createState() => _UserTopicPageState();
 }
 
-class _UserDashboardPageState extends State<UserDashboardPage> {
-  List subjects = [
-    "Physics",
-    "Chemistry",
-    "Biology",
-    "Elective Maths",
-    "English Language",
-    "Core Maths",
-    "Social Studies"
-  ];
-
+class _UserTopicPageState extends State<UserTopicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size(double.maxFinite, 60),
         child: GlassContainer(
@@ -38,12 +33,13 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             // foregroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: Text(
-              "Dashboard",
+              "Introduction to Physics",
               style: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
+            leading: const CupertinoNavigationBarBackButton(),
           ),
         ),
       ),
@@ -54,43 +50,25 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Hello Prince",
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 25
-                ),
-              ),
-             const SizedBox(
-                height: 20,
-              ),
-            const  Text(
-                "Subjects Taught",
-              ),
-           const   SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 20),
+              const Text("Subtopics "),
+              const SizedBox(height: 10),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount:subjects.length,
+                itemCount: 3,
                 itemBuilder: (context, index) {
-                  return SubjectCard(
-                    title: subjects[index],
-                    onPressed: () {
-                      Navigator.push(context,
-                          slideLeftTransition(UserSubjectPage(
-                            title: subjects[index]
-                          )));
-                    },
+                  return ListTile(
+                    title: Text("Measurements"),
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
               ),
+              const SizedBox(
+                height: 25,
+              )
             ],
           ),
         ),
