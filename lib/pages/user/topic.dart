@@ -58,7 +58,7 @@ class _UserTopicPageState extends State<UserTopicPage> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                  return ListTile(
+                  return const ListTile(
                     title: Text("Measurements"),
                   );
                 },

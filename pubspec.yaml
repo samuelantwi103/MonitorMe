@@ -49,6 +49,8 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   flutter_native_splash: ^2.4.2
   google_nav_bar: ^5.0.7
+  cloud_firestore: ^5.4.1
+  firebase_core: ^3.4.0
 
 dev_dependencies:
   flutter_test:
