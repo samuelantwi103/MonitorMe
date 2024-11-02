@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monitor_me/components/card.dart';
 import 'package:monitor_me/components/glass_container.dart';
@@ -54,6 +53,7 @@ class _UserTopicPageState extends State<AdminTeacherPage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Column(

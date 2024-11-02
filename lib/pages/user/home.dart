@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:monitor_me/components/glass_container.dart';
-import 'package:monitor_me/components/text_field.dart';
-import 'package:monitor_me/pages/auth/sign_in.dart';
 
 // import 'package:washking/components/glass_container.dart';
 import 'package:monitor_me/pages/user/dashboard.dart';
 import 'package:monitor_me/pages/user/settings.dart';
-import 'package:monitor_me/services/callback.dart';
-import 'package:monitor_me/services/transitions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

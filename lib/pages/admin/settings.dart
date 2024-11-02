@@ -37,6 +37,7 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SafeArea(

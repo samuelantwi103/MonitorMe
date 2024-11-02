@@ -101,6 +101,7 @@ class SigninPageState extends State<SigninPage> with TickerProviderStateMixin {
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

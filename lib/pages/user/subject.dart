@@ -85,6 +85,7 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: SafeArea(

@@ -37,6 +37,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SafeArea(
