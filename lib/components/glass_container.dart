@@ -8,6 +8,7 @@ class GlassContainer extends StatelessWidget {
   final double? height;
   final BorderRadiusGeometry borderRadius;
   final double? width;
+  final EdgeInsetsGeometry? padding;
   final Decoration? decoration;
   const GlassContainer({
     super.key,
@@ -16,6 +17,7 @@ class GlassContainer extends StatelessWidget {
     this.borderRadius = BorderRadius.zero,
     this.width,
     this.decoration,
+    this.padding,
   });
 
   @override
@@ -27,7 +29,7 @@ class GlassContainer extends StatelessWidget {
             height: height,
             width: width,
             decoration: decoration,
-            padding: const EdgeInsets.all(2),
+            padding: padding ?? const EdgeInsets.all(2),
             child: BackdropFilter(
               filter: ImageFilter.blur(
                 sigmaX: 5,
@@ -35,5 +37,59 @@ class GlassContainer extends StatelessWidget {
               ),
               child: child,
             )));
+  }
+}
+
+class GlassFloatingActionButton extends StatelessWidget {
+  final Widget? label;
+  final Widget icon;
+  final void Function()? onPressed;
+  const GlassFloatingActionButton(
+      {super.key, this.label, required this.icon, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    if (label != null) {
+      return GlassContainer(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(18),
+        child: FloatingActionButton.extended(
+          backgroundColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Theme.of(context).colorScheme.onSurface,
+          hoverElevation: 0,
+          focusElevation: 0,
+          clipBehavior: Clip.antiAlias,
+          onPressed: onPressed,
+          icon: icon,
+          label: label!,
+          // isExtended: isFABHovered,
+        ),
+      );
+    } else {
+      return GlassContainer(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(18),
+        child: FloatingActionButton(
+          backgroundColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          foregroundColor: Theme.of(context).colorScheme.onSurface,
+          elevation: 0,
+          hoverElevation: 0,
+          focusElevation: 0,
+          clipBehavior: Clip.antiAlias,
+          onPressed: onPressed,
+          child: icon,
+          // isExtended: isFABHovered,
+        ),
+      );
+    }
   }
 }

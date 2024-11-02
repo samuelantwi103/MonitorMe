@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monitor_me/components/card.dart';
@@ -50,48 +49,51 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-             const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Hello Prince",
-                style: GoogleFonts.bebasNeue(
-                  fontSize: 25
-                ),
-              ),
-             const SizedBox(
-                height: 20,
-              ),
-            const  Text(
-                "Subjects Taught",
-              ),
-           const   SizedBox(
-                height: 10,
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount:subjects.length,
-                itemBuilder: (context, index) {
-                  return SubjectCard(
-                    title: subjects[index],
-                    onPressed: () {
-                      Navigator.push(context,
-                          slideLeftTransition(UserSubjectPage(
-                            title: subjects[index]
-                          )));
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
+          child: SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+               const SizedBox(
                   height: 10,
                 ),
-              ),
-            ],
+                Text(
+                  "Hello Prince",
+                  style: GoogleFonts.bebasNeue(
+                    fontSize: 25
+                  ),
+                ),
+               const SizedBox(
+                  height: 15,
+                ),
+               Text(
+                  "Subjects",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+             const   SizedBox(
+                  height: 10,
+                ),
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount:subjects.length,
+                  itemBuilder: (context, index) {
+                    return SubjectCard(
+                      title: subjects[index],
+                      onPressed: () {
+                        Navigator.push(context,
+                            slideLeftTransition(UserSubjectPage(
+                              title: subjects[index]
+                            )));
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 15,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

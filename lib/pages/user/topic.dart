@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monitor_me/components/card.dart';
-import 'package:monitor_me/components/collapsible.dart';
 import 'package:monitor_me/components/glass_container.dart';
-import 'package:monitor_me/pages/user/dashboard.dart';
-import 'package:monitor_me/pages/user/subject.dart';
-import 'package:monitor_me/services/transitions.dart';
+import 'package:monitor_me/components/text_field.dart';
+import 'package:monitor_me/services/callback.dart';
 
 class UserTopicPage extends StatefulWidget {
   final String title;
@@ -19,6 +17,21 @@ class UserTopicPage extends StatefulWidget {
 }
 
 class _UserTopicPageState extends State<UserTopicPage> {
+  List<Map<String, dynamic>> subtopics = [
+    {
+      "title": "Units of measurements",
+      "complete": true,
+    },
+    {
+      "title": "Dimensional analysis",
+      "complete": false,
+    },
+    {
+      "title": "Physical quantities",
+      "complete": true,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +46,7 @@ class _UserTopicPageState extends State<UserTopicPage> {
             // foregroundColor: Theme.of(context).colorScheme.primary,
             centerTitle: true,
             title: Text(
-              "Introduction to Physics",
+              widget.title,
               style: TextStyle(
                 fontSize: 20,
                 color: Theme.of(context).colorScheme.primary,
@@ -51,27 +64,80 @@ class _UserTopicPageState extends State<UserTopicPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              const Text("Subtopics "),
+              Text(
+                "Subtopics",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
               const SizedBox(height: 10),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("Measurements"),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 15,
+              Card(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: subtopics.length,
+                  itemBuilder: (context, index) {
+                    var subtopic = subtopics[index];
+                    return SubtopicTile(
+                      title: subtopic["title"],
+                      isComplete: subtopic["complete"],
+                      onTap: (bool? value) {
+                        setState(() {
+                          subtopic["complete"] = value ?? false;
+                        });
+                      },
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 15,
+                    child: Divider(
+                      thickness: 3,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 25,
-              )
+              ),
             ],
           ),
         ),
+      ),
+      floatingActionButton: GlassFloatingActionButton(
+        icon: const Icon(Icons.add),
+        label: const Text("Add Subtopic"),
+        onPressed: () {
+          // debugPrint("Hello");
+          TextEditingController controller = TextEditingController();
+
+          callDialog(
+              context: context,
+              content: Form(
+                  child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FormTextField(
+                    controller: controller,
+                    hintText: "Subtopic name",
+                    filled: true,
+                    filledColor: Theme.of(context)
+                        .colorScheme
+                        .secondaryContainer
+                        .withOpacity(0.4),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "NB: You cannot delete this subtopic once created",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onErrorContainer,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              )),
+              title: "Add Subtopic",
+              onConfirm: () {
+                debugPrint(controller.text);
+              });
+        },
       ),
     );
   }

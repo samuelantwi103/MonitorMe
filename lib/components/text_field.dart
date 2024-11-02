@@ -12,7 +12,9 @@ class FormTextField extends StatefulWidget {
   TextInputType? keyboardType;
   FormFieldValidator<String>? validator;
   int? maxLength;
+  final bool filled;
   List<TextInputFormatter>? inputFormatters;
+  final Color? filledColor;
 
   FormTextField({
     super.key,
@@ -24,7 +26,7 @@ class FormTextField extends StatefulWidget {
     this.keyboardType,
     this.validator,
     this.maxLength,
-    this.inputFormatters,
+    this.inputFormatters,  this.filled = false, this.filledColor,
   });
 
   @override
@@ -39,12 +41,15 @@ class _FormTextFieldState extends State<FormTextField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       validator: widget.validator,
+      
       // obscureText: widget.obscureText,
       keyboardType: widget.keyboardType,
       maxLength: widget.maxLength,
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         // labelText: "Password",
+        filled: widget.filled,
+        fillColor: widget.filledColor,
         hintText: widget.hintText,
         // filled: true,
         counter: const SizedBox(

@@ -494,13 +494,46 @@ class TopicTile extends StatelessWidget {
                 height: 30,
                 width: 30,
                 child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
                   value: completed / total,
                   strokeCap: StrokeCap.round,
                   strokeWidth: 7,
                 ),
               ),
             )),
+      ),
+    );
+  }
+}
+
+class SubtopicTile extends StatelessWidget {
+  final String title;
+
+  final bool isComplete;
+
+  final void Function(bool?)? onTap;
+
+  const SubtopicTile({
+    super.key,
+    required this.title,
+    required this.onTap,
+    required this.isComplete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // debugPrint("option: $option correct: $isCorrect");
+    return Container(
+      color: Colors.transparent,
+      // height: 50,
+
+      width: double.maxFinite,
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+        horizontalTitleGap: 5,
+        title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+        trailing: Checkbox.adaptive(value: isComplete, onChanged: onTap),
       ),
     );
   }
@@ -517,36 +550,39 @@ class SubjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainer,
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-              width: 2, color: Theme.of(context).colorScheme.secondary)),
-      constraints: const BoxConstraints(
-        maxWidth: 300,
-      ),
+    return GestureDetector(
+      onTap: onPressed,
       child: Container(
-        // padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceContainer,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             border: Border.all(
                 width: 2, color: Theme.of(context).colorScheme.secondary)),
         constraints: const BoxConstraints(
           maxWidth: 300,
         ),
-        child: ListTile(
-          title: Text(
-            title,
-            style:
-                GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold),
+        child: Container(
+          // padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  width: 2, color: Theme.of(context).colorScheme.secondary)),
+          constraints: const BoxConstraints(
+            maxWidth: 300,
           ),
-          trailing: IconButton.filledTonal(
-              onPressed: onPressed,
-              icon: const Icon(Icons.arrow_forward_ios_rounded)),
-          contentPadding: EdgeInsets.all(10),
+          child: ListTile(
+            title: Text(
+              title,
+              style: GoogleFonts.poppins(
+                  fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            trailing: IconButton.filledTonal(
+                onPressed: onPressed,
+                icon: const Icon(Icons.arrow_forward_ios_rounded)),
+            contentPadding: const EdgeInsets.all(10),
+          ),
         ),
       ),
     );

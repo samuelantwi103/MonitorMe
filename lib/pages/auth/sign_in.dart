@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:monitor_me/components/button.dart';
 import 'package:monitor_me/components/text_field.dart';
 import 'package:monitor_me/pages/user/home.dart';
-import 'package:monitor_me/pages/user/onboarding/onboarding.dart';
 import 'package:monitor_me/services/transitions.dart';
 
 class SigninPage extends StatefulWidget {

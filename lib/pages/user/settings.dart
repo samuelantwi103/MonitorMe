@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:monitor_me/components/button.dart';
 import 'package:monitor_me/components/glass_container.dart';
+import 'package:monitor_me/pages/auth/sign_in.dart';
+import 'package:monitor_me/services/transitions.dart';
 import 'package:monitor_me/themes/theme_switch.dart';
 
 class UserSettingsPage extends StatefulWidget {
@@ -15,7 +19,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size(double.maxFinite, 60),
+        preferredSize: const Size(double.maxFinite, 60),
         child: GlassContainer(
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
@@ -36,30 +40,75 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Card(
-                clipBehavior: Clip.antiAlias,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .surfaceContainerHighest),
-                  height: 80,
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Theme",
-                        style: Theme.of(context).textTheme.titleMedium,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton.tonalIcon(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        blurTransition(
+                          const SigninPage(),
+                        ),
+                      );
+                    },
+                    style: const ButtonStyle(
+                      padding: WidgetStatePropertyAll(
+                        EdgeInsets.symmetric(
+                          horizontal: 25,
+                          vertical: 20,
+                        ),
                       ),
-                      const ThemeSwitch(),
-                    ],
+                    ),
+                    label: const Text("Logout"),
+                    icon: const Icon(Icons.logout_rounded),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Prince Philips",
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Divider(
+                  indent: 15,
+                  endIndent: 15,
+                ),
+                const SizedBox(height: 10),
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest),
+                    height: 70,
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Theme",
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const ThemeSwitch(),
+                      ],
+                    ),
+                  ),
+                ),
+                
+              ],
+            ),
           ),
         ),
       ),
