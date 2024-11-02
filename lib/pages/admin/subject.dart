@@ -93,7 +93,7 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 35,
+                  height: 100,
                 ),
               ],
             ),
