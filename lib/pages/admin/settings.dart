@@ -5,14 +5,14 @@ import 'package:monitor_me/pages/auth/sign_in.dart';
 import 'package:monitor_me/services/transitions.dart';
 import 'package:monitor_me/themes/theme_switch.dart';
 
-class UserSettingsPage extends StatefulWidget {
-  const UserSettingsPage({super.key});
+class AdminSettingsPage extends StatefulWidget {
+  const AdminSettingsPage({super.key});
 
   @override
-  State<UserSettingsPage> createState() => _UserSettingsPageState();
+  State<AdminSettingsPage> createState() => _AdminSettingsPageState();
 }
 
-class _UserSettingsPageState extends State<UserSettingsPage> {
+class _AdminSettingsPageState extends State<AdminSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,39 +72,40 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Prince Philips",
-                    style: GoogleFonts.martelSans(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                ),
-                // const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    "Subjects: 10",
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
                   child: Text(
-                    "Contact: 0258 695 848",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w500
+                    "Number of Subjects: 1",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Contact: 0258 695 848",
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
                 const Divider(
-                  thickness: 3,
                   indent: 15,
                   endIndent: 15,
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 10),
                 Card(
                   clipBehavior: Clip.antiAlias,
                   child: Container(
@@ -126,6 +127,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     ),
                   ),
                 ),
+                
               ],
             ),
           ),

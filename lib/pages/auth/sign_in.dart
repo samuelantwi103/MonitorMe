@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monitor_me/components/button.dart';
 import 'package:monitor_me/components/text_field.dart';
+import 'package:monitor_me/pages/admin/home.dart';
 import 'package:monitor_me/pages/user/home.dart';
 import 'package:monitor_me/services/transitions.dart';
 
@@ -179,8 +180,13 @@ class SigninPageState extends State<SigninPage> with TickerProviderStateMixin {
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     content: Text(
                                         'Logging in with code: $code pin:$pin')));
-                                Navigator.pushReplacement(
+                                        if(pin == '0000') {
+                                          Navigator.pushReplacement(
+                                    context, blurTransition(AdminHomePage()));
+                                        } else {
+                                          Navigator.pushReplacement(
                                     context, blurTransition(HomePage()));
+                                        }
                               }
                             },
                             text: "Login",

@@ -94,9 +94,9 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                    "Topics",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  "Topics",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: 20),
                 ListView.separated(
                   shrinkWrap: true,
@@ -133,10 +133,11 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                                   },
                                 );
                               },
-                              separatorBuilder: (context, index) => const Divider(
-                                  // indent: 25,
-                                  // endIndent: 25,
-                                  ),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(
+                                      // indent: 25,
+                                      // endIndent: 25,
+                                      ),
                             ))
                       ],
                     );
@@ -158,34 +159,95 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
         label: const Text("Add Topic"),
         onPressed: () {
           // debugPrint("Hello");
+
           TextEditingController controller = TextEditingController();
+          final formKey = GlobalKey<FormState>();
+
+          String? form;
 
           callDialog(
               context: context,
               content: Form(
+                  key: formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                children: [
-                 
-                  // const SizedBox(height: 10),
-                  FormTextField(
-                      controller: controller, hintText: "Topic name",
-                      filled: true,
-                      filledColor: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.4),
+                    children: [
+                      // const SizedBox(height: 10),
+                      FormTextField(
+                        controller: controller,
+                        hintText: "Topic name",
+                        filled: true,
+                        filledColor: Theme.of(context)
+                            .colorScheme
+                            .secondaryContainer
+                            .withOpacity(0.4),
+                        validator: (value) {
+                          debugPrint("hello");
+                          if (value == null || value.isEmpty) {
+                            return "Enter a topic name";
+                          }
+                          return null;
+                        },
                       ),
-                       const SizedBox(height: 10),
-                  Text(
-                    "NB: You cannot delete this topic once created",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onErrorContainer,
-                          fontWeight: FontWeight.bold
+                      const SizedBox(height: 10),
+                      DropdownButtonFormField(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        dropdownColor:
+                            Theme.of(context).colorScheme.secondaryContainer,
+                        borderRadius: BorderRadius.circular(5),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Theme.of(context)
+                              .colorScheme
+                              .secondaryContainer
+                              .withOpacity(0.4),
+                          hintText: "Form",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
-                  )
-                ],
-              )),
+                        
+                        validator: (value) {
+                          if (value == null) {
+                            return "Select a form";
+                          }
+                          return null;
+                        },
+                        items: const [
+                          DropdownMenuItem(
+                            value: "form 1",
+                            child: Text("Form 1"),
+                          ),
+                          DropdownMenuItem(
+                            value: "form 2",
+                            child: Text("Form 2"),
+                          ),
+                          DropdownMenuItem(
+                            value: "form 3",
+                            child: Text("Form 3"),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          form = value!;
+                        },
+                      ),
+                      const SizedBox(height: 10),
+
+                      Text(
+                        "NB: You cannot delete this topic once created",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color:
+                                Theme.of(context).colorScheme.onErrorContainer,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
               title: "Add Topic",
               onConfirm: () {
-                debugPrint(controller.text);
+                if (formKey.currentState!.validate()) {
+                  debugPrint(controller.text);
+                  debugPrint(form);
+                }
               });
         },
       ),

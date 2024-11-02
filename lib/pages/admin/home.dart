@@ -2,34 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/components/text_field.dart';
-import 'package:monitor_me/pages/auth/sign_in.dart';
+import 'package:monitor_me/pages/admin/settings.dart';
+import 'package:monitor_me/pages/admin/subject.dart';
+import 'package:monitor_me/pages/admin/teacher.dart';
 
 // import 'package:washking/components/glass_container.dart';
 import 'package:monitor_me/pages/user/dashboard.dart';
 import 'package:monitor_me/pages/user/settings.dart';
 import 'package:monitor_me/services/callback.dart';
-import 'package:monitor_me/services/transitions.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AdminHomePage extends StatefulWidget {
+  const AdminHomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AdminHomePage> createState() => _AdminHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AdminHomePageState extends State<AdminHomePage> {
   int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
+  List FABs = [
+          // Subjects FAB
+          subjectFAB(context),
+          
+          // Teachers FAB
+          teacherFAB(context),
+          null,
+        ];
     return Scaffold(
       extendBody: true,
       body: IndexedStack(
         index: currentPage,
         children: const [
-          UserDashboardPage(),
+          AdminSubjectPage(),
+          AdminTeacherPage(),
           // UserDashboardPage(),
-          UserSettingsPage(),
+          AdminSettingsPage(),
         ],
       ),
       bottomNavigationBar: Row(
@@ -59,8 +69,12 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(15),
                 tabs: const [
                   GButton(
-                    icon: Icons.dashboard_outlined,
-                    text: 'Dashboard',
+                    icon: Icons.book_outlined,
+                    text: 'Subjects',
+                  ),
+                  GButton(
+                    icon: Icons.groups_2_outlined,
+                    text: 'Staff',
                   ),
                   GButton(
                     icon: Icons.settings_outlined,
@@ -88,27 +102,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      // floatingActionButton: 
-      // IndexedStack(
-      //   index: currentPage,
-      //   children: [
-      //     // Dashboard FAB
-      //     const SizedBox(),
-
-      //     // Settings FAB
-      //     GlassFloatingActionButton(
-      //       icon: const Icon(Icons.logout_rounded),
-      //       label: const Text("Logout"),
-      //       onPressed: () {
-      //         // debugPrint("Hello");
-      //         Navigator.pushReplacement(
-      //           context,
-      //           blurTransition(const SigninPage()),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // ),
+      floatingActionButton: FABs[currentPage],
     );
 
     //     const AppLayout(
