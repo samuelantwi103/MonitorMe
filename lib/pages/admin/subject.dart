@@ -4,6 +4,8 @@ import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/card.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/components/text_field.dart';
+import 'package:monitor_me/pages/admin/subtopic.dart';
+import 'package:monitor_me/pages/admin/topic.dart';
 import 'package:monitor_me/pages/user/subject.dart';
 import 'package:monitor_me/services/callback.dart';
 import 'package:monitor_me/services/transitions.dart';
@@ -60,19 +62,19 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
                   height: 10,
                 ),
                 Text(
-                  "Hello ${headTeacher.headTeacherInfo!['name']}",
+                  "Welcome ${headTeacher.headTeacherInfo!['name']}",
                   style: GoogleFonts.bebasNeue(fontSize: 25),
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
-                  "Subjects",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // Text(
+                //   "Subjects",
+                //   style: Theme.of(context).textTheme.titleMedium,
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -84,7 +86,18 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
                         Navigator.push(
                             context,
                             slideLeftTransition(
-                                UserSubjectPage(title: subjects[index]["name"])));
+                                AdminTopicPage(title: subjects[index]["name"])));
+                      },
+                      onLongPressed: () {
+                        callDialog(
+                          context: context,
+                          title: "Delete Subject?",
+                          content: const Text(
+                              "Teachers associated to this subject will be unlinked!"),
+                          onConfirm: () {
+                            Navigator.pop(context);
+                          },
+                        );
                       },
                     );
                   },
@@ -129,72 +142,30 @@ Widget subjectFAB(BuildContext context) {
                   // const SizedBox(height: 10),
                   FormTextField(
                     controller: controller,
-                    hintText: "Topic name",
+                    hintText: "Subject name",
                     filled: true,
                     filledColor: Theme.of(context)
                         .colorScheme
                         .secondaryContainer
-                        .withOpacity(0.4),
+                       .withOpacity(0.2),
                     validator: (value) {
-                      debugPrint("hello");
                       if (value == null || value.isEmpty) {
-                        return "Enter a topic name";
+                        return "Enter a subject name";
                       }
                       return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  DropdownButtonFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    dropdownColor:
-                        Theme.of(context).colorScheme.secondaryContainer,
-                    borderRadius: BorderRadius.circular(5),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Theme.of(context)
-                          .colorScheme
-                          .secondaryContainer
-                          .withOpacity(0.4),
-                      hintText: "Form",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null) {
-                        return "Select a form";
-                      }
-                      return null;
-                    },
-                    items: const [
-                      DropdownMenuItem(
-                        value: "form 1",
-                        child: Text("Form 1"),
-                      ),
-                      DropdownMenuItem(
-                        value: "form 2",
-                        child: Text("Form 2"),
-                      ),
-                      DropdownMenuItem(
-                        value: "form 3",
-                        child: Text("Form 3"),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      form = value!;
                     },
                   ),
                   const SizedBox(height: 10),
 
-                  Text(
-                    "NB: You cannot delete this topic once created",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onErrorContainer,
-                        fontWeight: FontWeight.bold),
-                  )
+                  // Text(
+                  //   "NB: You cannot delete this s once created",
+                  //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  //       color: Theme.of(context).colorScheme.onErrorContainer,
+                  //       fontWeight: FontWeight.bold),
+                  // )
                 ],
               )),
-          title: "Add Topic",
+          title: "Add Subject?",
           onConfirm: () {
             if (formKey.currentState!.validate()) {
               debugPrint(controller.text);

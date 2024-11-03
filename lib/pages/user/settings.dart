@@ -49,31 +49,31 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FilledButton.tonalIcon(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        blurTransition(
-                          const SigninPage(),
-                        ),
-                      );
-                    },
-                    style: const ButtonStyle(
-                      padding: WidgetStatePropertyAll(
-                        EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 20,
-                        ),
-                      ),
-                    ),
-                    label: const Text("Logout"),
-                    icon: const Icon(Icons.logout_rounded),
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // const SizedBox(height: 10),
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: FilledButton.tonalIcon(
+                //     onPressed: () {
+                //       Navigator.pushReplacement(
+                //         context,
+                //         blurTransition(
+                //           const SigninPage(),
+                //         ),
+                //       );
+                //     },
+                //     style: const ButtonStyle(
+                //       padding: WidgetStatePropertyAll(
+                //         EdgeInsets.symmetric(
+                //           horizontal: 25,
+                //           vertical: 20,
+                //         ),
+                //       ),
+                //     ),
+                //     label: const Text("Logout"),
+                //     icon: const Icon(Icons.logout_rounded),
+                //   ),
+                // ),
+                const SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -104,13 +104,13 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 const Divider(
-                  thickness: 3,
+                  thickness: 5,
                   indent: 15,
                   endIndent: 15,
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 25),
                 Card(
                   clipBehavior: Clip.antiAlias,
                   child: Container(

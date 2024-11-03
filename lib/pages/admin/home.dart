@@ -25,7 +25,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
           
           // Teachers FAB
           teacherFAB(context),
-          null,
+
+          // Settings FAB
+          settingsFAB(context),
         ];
     return Scaffold(
       extendBody: true,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:monitor_me/components/glass_container.dart';
+import 'package:monitor_me/pages/admin/settings.dart';
 
 // import 'package:washking/components/glass_container.dart';
 import 'package:monitor_me/pages/user/dashboard.dart';
@@ -18,6 +19,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    List FABs = [
+          // Dashboard FAB
+          null,
+        
+          // Settings FAB
+          userSettingsFAB(context),
+        ];
     return Scaffold(
       extendBody: true,
       body: IndexedStack(
@@ -84,6 +92,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      floatingActionButton: FABs[currentPage],
       // floatingActionButton: 
       // IndexedStack(
       //   index: currentPage,

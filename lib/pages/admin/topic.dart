@@ -4,21 +4,20 @@ import 'package:monitor_me/components/card.dart';
 import 'package:monitor_me/components/collapsible.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/components/text_field.dart';
+import 'package:monitor_me/pages/admin/subtopic.dart';
 import 'package:monitor_me/pages/user/topic.dart';
 import 'package:monitor_me/services/callback.dart';
 import 'package:monitor_me/services/transitions.dart';
 
-class UserSubjectPage extends StatefulWidget {
+class AdminTopicPage extends StatefulWidget {
   final String title;
-  const UserSubjectPage({super.key, required this.title});
+  const AdminTopicPage({super.key, required this.title});
 
   @override
-  State<UserSubjectPage> createState() => _UserSubjectPageState();
+  State<AdminTopicPage> createState() => _AdminTopicPageState();
 }
 
-class _UserSubjectPageState extends State<UserSubjectPage> {
-  bool isFABHovered = false;
-
+class _AdminTopicPageState extends State<AdminTopicPage> {
   @override
   Widget build(BuildContext context) {
     List<List<Map<String, dynamic>>> topics = [
@@ -46,6 +45,11 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
           "title": "Vectors",
           "completed": 0,
           "total": 15,
+        },
+        {
+          "title": "Forces",
+          "completed": 10,
+          "total": 20,
         }
       ],
       // Form 3
@@ -129,16 +133,24 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                                   onTap: () {
                                     Navigator.push(
                                         context,
-                                        slideLeftTransition(UserTopicPage(
+                                        slideLeftTransition(AdminSubtopicPage(
                                             title: topicData["title"])));
+                                  },
+                                  onLongPress: () {
+                                    callDialog(
+                                      context: context,
+                                      title: "Delete Topic?",
+                                      content: const Text(
+                                          "All records associated with this topic will be deleted!"),
+                                      onConfirm: () {
+                                        Navigator.pop(context);
+                                      },
+                                    );
                                   },
                                 );
                               },
                               separatorBuilder: (context, index) =>
-                                  const Divider(
-                                      // indent: 25,
-                                      // endIndent: 25,
-                                      ),
+                                  const Divider(),
                             ))
                       ],
                     );
@@ -148,7 +160,7 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 100,
                 )
               ],
             ),
@@ -183,7 +195,6 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                             .secondaryContainer
                             .withOpacity(0.2),
                         validator: (value) {
-                          debugPrint("hello");
                           if (value == null || value.isEmpty) {
                             return "Enter a topic name";
                           }
@@ -207,7 +218,6 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
-                        
                         validator: (value) {
                           if (value == null) {
                             return "Select a form";
@@ -232,15 +242,6 @@ class _UserSubjectPageState extends State<UserSubjectPage> {
                           form = value!;
                         },
                       ),
-                      const SizedBox(height: 10),
-
-                      Text(
-                        "NB: You cannot delete this topic once created",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color:
-                                Theme.of(context).colorScheme.onErrorContainer,
-                            fontWeight: FontWeight.bold),
-                      )
                     ],
                   )),
               title: "Add Topic?",

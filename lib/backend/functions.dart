@@ -112,7 +112,7 @@ Future<void> addNewSubject(String subjectName)async {
 
 
 Future<void> addNewTeacher(String firstname,lastname)async {
-  final fullname = firstname+'_'+lastname;
+  final fullname = '${firstname}_'+lastname;
   final newTeachDoc = FirebaseFirestore.instance.collection('schools').doc('berekuso')
   .collection('teachers').doc(fullname.toLowerCase());
   await newTeachDoc.set({

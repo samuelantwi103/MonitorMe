@@ -10,6 +10,8 @@ class GlassContainer extends StatelessWidget {
   final double? width;
   final EdgeInsetsGeometry? padding;
   final Decoration? decoration;
+  final BoxConstraints? constraints;
+
   const GlassContainer({
     super.key,
     this.child,
@@ -18,6 +20,7 @@ class GlassContainer extends StatelessWidget {
     this.width,
     this.decoration,
     this.padding,
+    this.constraints,
   });
 
   @override
@@ -26,6 +29,7 @@ class GlassContainer extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         borderRadius: borderRadius,
         child: Container(
+            constraints: constraints,
             height: height,
             width: width,
             decoration: decoration,

@@ -29,61 +29,67 @@ class PopupDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: GlassContainer(
+        constraints: const BoxConstraints(
+          maxWidth: 400,
+          maxHeight: 600,
+        ),
         padding: const EdgeInsets.all(25.0),
         decoration: BoxDecoration(
-          color:
-              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.4),
+          color: Theme.of(context).colorScheme.surfaceContainer.withOpacity(0.7),
+              // Theme.of(context).colorScheme.secondaryContainer.withAlpha(150),
         ),
         borderRadius: const BorderRadius.all(Radius.circular(30)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            showTitle
-                ? Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      title,
-                      style: GoogleFonts.bebasNeue(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontSize: 20,
-                        letterSpacing: 5,
-                        fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              showTitle
+                  ? Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        title,
+                        style: GoogleFonts.bebasNeue(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          fontSize: 20,
+                          letterSpacing: 5,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  )
-                : const SizedBox(),
-            const SizedBox(height: 10),
-            message,
-            const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Wrap(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  showCancel
-                      ? TextButton(
-                          onPressed: onCancel,
-                          child: Text(
-                            'Cancel',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onErrorContainer),
-                          ),
-                        )
-                      : const SizedBox(),
-                  showConfirm
-                      ? SmoothButton(
-                          onPressed: onConfirm,
-                          text: 'Confirm',
-                        )
-                      : const SizedBox(),
-                ],
+                    )
+                  : const SizedBox(),
+              const SizedBox(height: 10),
+              message,
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    showCancel
+                        ? TextButton(
+                            onPressed: onCancel,
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onErrorContainer),
+                            ),
+                          )
+                        : const SizedBox(),
+                    showConfirm
+                        ? SmoothButton(
+                            onPressed: onConfirm,
+                            text: 'Confirm',
+                          )
+                        : const SizedBox(),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       // title: showTitle ? Text(title) : null,

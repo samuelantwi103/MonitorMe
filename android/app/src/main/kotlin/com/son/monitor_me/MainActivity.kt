@@ -1,4 +1,4 @@
-package com.son.monitor_me
+package com.monitorme.app
 
 import io.flutter.embedding.android.FlutterActivity
 

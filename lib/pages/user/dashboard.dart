@@ -15,15 +15,15 @@ class UserDashboardPage extends StatefulWidget {
 }
 
 class _UserDashboardPageState extends State<UserDashboardPage> {
-  List subjects = [
-    "Physics",
-    "Chemistry",
-    "Biology",
-    "Elective Maths",
-    "English Language",
-    "Core Maths",
-    "Social Studies"
-  ];
+  List subjects = [];
+  //   "Physics",
+  //   "Chemistry",
+  //   "Biology",
+  //   "Elective Maths",
+  //   "English Language",
+  //   "Core Maths",
+  //   "Social Studies"
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                       onPressed: () {
                         Navigator.push(context,
                             slideLeftTransition(UserSubjectPage(
-                              title: subjects[index]
+                              title: subjects[index]['name']
                             )));
                       },
                     );

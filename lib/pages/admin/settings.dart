@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/glass_container.dart';
+import 'package:monitor_me/components/text_field.dart';
 import 'package:monitor_me/pages/auth/sign_in.dart';
+import 'package:monitor_me/services/callback.dart';
 import 'package:monitor_me/services/transitions.dart';
 import 'package:monitor_me/themes/theme_switch.dart';
 import 'package:provider/provider.dart';
@@ -15,11 +17,11 @@ class AdminSettingsPage extends StatefulWidget {
 }
 
 class _AdminSettingsPageState extends State<AdminSettingsPage> {
-    List<Map<String,dynamic>> subjects = [
-  ];
+  List<Map<String, dynamic>> subjects = [];
   @override
   Widget build(BuildContext context) {
-    final headTeacher = Provider.of<HeadTeacherProvider>(context, listen: true).currentTeacher;
+    final headTeacher =
+        Provider.of<HeadTeacherProvider>(context, listen: true).currentTeacher;
     subjects = headTeacher!.subjects!;
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -50,83 +52,76 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: FilledButton.tonalIcon(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        blurTransition(
-                          const SigninPage(),
-                        ),
-                      );
-                    },
-                    style: const ButtonStyle(
-                      padding: WidgetStatePropertyAll(
-                        EdgeInsets.symmetric(
-                          horizontal: 25,
-                          vertical: 20,
-                        ),
-                      ),
-                    ),
-                    label: const Text("Logout"),
-                    icon: const Icon(Icons.logout_rounded),
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // const SizedBox(height: 10),
+                // Align( 
+                //   alignment: Alignment.centerRight,
+                //   child: FilledButton.tonalIcon(
+                //     onPressed: () {},
+                //     style: const ButtonStyle(
+                //       padding: WidgetStatePropertyAll(
+                //         EdgeInsets.symmetric(
+                //           horizontal: 25,
+                //           vertical: 20,
+                //         ),
+                //       ),
+                //     ),
+                //     label: const Text("Logout"),
+                //     icon: const Icon(Icons.logout_rounded),
+                //   ),
+                // ),
+                const SizedBox(height: 15),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "School: ${headTeacher.headTeacherInfo!['name']}",
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                    "${headTeacher.headTeacherInfo!['name']} SHS",
+                    style: GoogleFonts.martelSans(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                // const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Head Teacher: ${headTeacher.headTeacherInfo!['head']}",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    "Head Teacher: Mr. ${headTeacher.headTeacherInfo!['head']}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Number of Teachers: 1 ",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    "Teachers: 1",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Number of Subjects: ${subjects.length}",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    "Subjects: ${subjects.length}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
                     "Location: Berekuso, Eastern Region-Ghana",
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -134,18 +129,19 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Contact: 0258 695 848",
-                    style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 25),
                 const Divider(
+                  thickness: 5,
                   indent: 15,
                   endIndent: 15,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 25),
                 Card(
                   clipBehavior: Clip.antiAlias,
                   child: Container(
@@ -167,7 +163,6 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),
@@ -175,4 +170,35 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
       ),
     );
   }
+}
+
+//
+Widget settingsFAB(BuildContext context) {
+  return GlassFloatingActionButton(
+    icon: const Icon(Icons.logout_rounded),
+    label: const Text("Logout"),
+    onPressed: () {
+      Navigator.pushReplacement(
+        context,
+        blurTransition(
+          const SigninPage(),
+        ),
+      );
+    },
+  );
+}
+
+Widget userSettingsFAB(BuildContext context) {
+  return GlassFloatingActionButton(
+    icon: const Icon(Icons.logout_rounded),
+    label: const Text("Logout"),
+    onPressed: () {
+      Navigator.pushReplacement(
+        context,
+        blurTransition(
+          const SigninPage(),
+        ),
+      );
+    },
+  );
 }

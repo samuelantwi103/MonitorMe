@@ -123,7 +123,7 @@ class _UserTopicPageState extends State<UserTopicPage> {
                     filledColor: Theme.of(context)
                         .colorScheme
                         .secondaryContainer
-                        .withOpacity(0.4),
+                        .withOpacity(0.2),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -134,7 +134,7 @@ class _UserTopicPageState extends State<UserTopicPage> {
                   ),
                 ],
               )),
-              title: "Add Subtopic",
+              title: "Add Subtopic?",
               onConfirm: () {
                 debugPrint(controller.text);
               });
