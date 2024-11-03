@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/card.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/components/text_field.dart';
 import 'package:monitor_me/pages/user/subject.dart';
 import 'package:monitor_me/services/callback.dart';
 import 'package:monitor_me/services/transitions.dart';
+import 'package:provider/provider.dart';
 
 class AdminSubjectPage extends StatefulWidget {
   const AdminSubjectPage({super.key});
@@ -15,19 +17,16 @@ class AdminSubjectPage extends StatefulWidget {
 }
 
 class _UserDashboardPageState extends State<AdminSubjectPage> {
-  List subjects = [
-    "Physics",
-    "Chemistry",
-    "Biology",
-    "Elective Maths",
-    "English Language",
-    "Core Maths",
-    "Social Studies"
+  List<Map<String,dynamic>> subjects = [
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final headTeacher = Provider.of<HeadTeacherProvider>(context, listen: true).currentTeacher;
+    subjects = headTeacher!.subjects!;
+    
+    return (headTeacher != null)? Scaffold(
+
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size(double.maxFinite, 60),
@@ -61,7 +60,7 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
                   height: 10,
                 ),
                 Text(
-                  "Hello Prince",
+                  "Hello ${headTeacher.headTeacherInfo!['name']}",
                   style: GoogleFonts.bebasNeue(fontSize: 25),
                 ),
                 const SizedBox(
@@ -80,12 +79,12 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
                   itemCount: subjects.length,
                   itemBuilder: (context, index) {
                     return SubjectCard(
-                      title: subjects[index],
+                      title: subjects[index]["name"],
                       onPressed: () {
                         Navigator.push(
                             context,
                             slideLeftTransition(
-                                UserSubjectPage(title: subjects[index])));
+                                UserSubjectPage(title: subjects[index]["name"])));
                       },
                     );
                   },
@@ -101,6 +100,9 @@ class _UserDashboardPageState extends State<AdminSubjectPage> {
           ),
         ),
       ),
+    ):
+    const Scaffold(
+      body: Center(child: Text("head teacher is null"))
     );
   }
 }

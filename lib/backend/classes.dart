@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 class Teacher {
   
   Map<String, dynamic>? teacherInfo;
+  bool isHead = false;
+  List<String>? subNames;
+  List<Map<String, dynamic>>? subjects;
 
   Teacher();
 
@@ -105,6 +108,42 @@ class TopicProvider extends ChangeNotifier {
 
   void setCurrentTeacher(Topic topic) {
     _currentTopic = topic;
+    notifyListeners();
+  }
+}
+
+
+
+//==================Head Teacher Class with Provider=============
+class HeadTeacher {
+  
+  Map<String, dynamic>? headTeacherInfo;
+  bool isHead = true;
+  List<Map<String, dynamic>>? teachers;
+  List<Map<String, dynamic>>? subjects;
+
+  HeadTeacher();
+
+  // Future<void> updateData(double value) async{
+  //   memberInfo!['completedscores'] += value;
+  //   await FirebaseFirestore.instance
+  //     .collection('organisations')
+  //     .doc(getFirstThreeLetters(memberInfo!['uniquecode']))
+  //     .collection('members')
+  //     .doc(memberInfo!['uniquecode'])
+  //     .update(memberInfo!);
+      
+}
+
+
+//-----------Head Teacher Provider-------------
+class HeadTeacherProvider extends ChangeNotifier {
+  HeadTeacher? _currentTeacher;
+
+  HeadTeacher? get currentTeacher => _currentTeacher;
+
+  void setCurrentTeacher(HeadTeacher teacher) {
+    _currentTeacher = teacher;
     notifyListeners();
   }
 }

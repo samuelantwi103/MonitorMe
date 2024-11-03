@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/pages/auth/sign_in.dart';
 import 'package:monitor_me/services/transitions.dart';
 import 'package:monitor_me/themes/theme_switch.dart';
+import 'package:provider/provider.dart';
 
 class UserSettingsPage extends StatefulWidget {
   const UserSettingsPage({super.key});
@@ -13,8 +15,11 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsPageState extends State<UserSettingsPage> {
+
   @override
   Widget build(BuildContext context) {
+    final teacher = Provider.of<TeacherProvider>(context, listen: true).currentTeacher;
+    var subjects = teacher!.subjects!;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -72,7 +77,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Prince Philips",
+                    "${teacher.teacherInfo!['firstname']} ${teacher.teacherInfo!['lastname']}",
                     style: GoogleFonts.martelSans(
                       fontSize: 25,
                       fontWeight: FontWeight.w800,
@@ -83,7 +88,7 @@ class _UserSettingsPageState extends State<UserSettingsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text(
-                    "Subjects: 10",
+                    "Subjects: ${teacher.subjects!.length}",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500
                     ),

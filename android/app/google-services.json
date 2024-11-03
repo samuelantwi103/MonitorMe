@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "403134134083",
+    "project_id": "monitor-me-app",
+    "storage_bucket": "monitor-me-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403134134083:android:da08eba627243a4bc561f6",
+        "android_client_info": {
+          "package_name": "com.monitorme.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQ_Zi2V-5xpEH4bpHGrl1vvFksxfAyX9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

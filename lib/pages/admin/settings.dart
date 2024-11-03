@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/pages/auth/sign_in.dart';
 import 'package:monitor_me/services/transitions.dart';
 import 'package:monitor_me/themes/theme_switch.dart';
+import 'package:provider/provider.dart';
 
 class AdminSettingsPage extends StatefulWidget {
   const AdminSettingsPage({super.key});
@@ -13,8 +15,12 @@ class AdminSettingsPage extends StatefulWidget {
 }
 
 class _AdminSettingsPageState extends State<AdminSettingsPage> {
+    List<Map<String,dynamic>> subjects = [
+  ];
   @override
   Widget build(BuildContext context) {
+    final headTeacher = Provider.of<HeadTeacherProvider>(context, listen: true).currentTeacher;
+    subjects = headTeacher!.subjects!;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -72,7 +78,7 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Prince Philips",
+                    "School: ${headTeacher.headTeacherInfo!['name']}",
                     style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -83,7 +89,40 @@ class _AdminSettingsPageState extends State<AdminSettingsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal:  8.0),
                   child: Text(
-                    "Number of Subjects: 1",
+                    "Head Teacher: ${headTeacher.headTeacherInfo!['head']}",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  child: Text(
+                    "Number of Teachers: 1 ",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  child: Text(
+                    "Number of Subjects: ${subjects.length}",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:  8.0),
+                  child: Text(
+                    "Location: Berekuso, Eastern Region-Ghana",
                     style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

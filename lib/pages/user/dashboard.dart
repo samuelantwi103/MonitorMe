@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:monitor_me/backend/classes.dart';
 import 'package:monitor_me/components/card.dart';
 import 'package:monitor_me/components/glass_container.dart';
 import 'package:monitor_me/pages/user/subject.dart';
 import 'package:monitor_me/services/transitions.dart';
+import 'package:provider/provider.dart';
 
 class UserDashboardPage extends StatefulWidget {
   const UserDashboardPage({super.key});
@@ -25,6 +27,8 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final teacher = Provider.of<TeacherProvider>(context, listen: true).currentTeacher;
+    subjects = teacher!.subjects!;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -59,7 +63,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                   height: 10,
                 ),
                 Text(
-                  "Hello Prince",
+                  "Hello ${teacher.teacherInfo!['firstname']}",
                   style: GoogleFonts.bebasNeue(
                     fontSize: 25
                   ),
@@ -80,7 +84,7 @@ class _UserDashboardPageState extends State<UserDashboardPage> {
                   itemCount:subjects.length,
                   itemBuilder: (context, index) {
                     return SubjectCard(
-                      title: subjects[index],
+                      title: subjects[index]['name'],
                       onPressed: () {
                         Navigator.push(context,
                             slideLeftTransition(UserSubjectPage(
